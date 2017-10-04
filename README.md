@@ -1,1 +1,1 @@
-kiteskill
+Kiteskill - A Amazon Echo Skill
