@@ -2,6 +2,8 @@
 {
     public struct WindPrediction
     {
-        public decimal Speed { get; set; }
+        public double Speed { get; set; }
+
+        public double SpeedKmH => Speed * 3.6;
     }
 }

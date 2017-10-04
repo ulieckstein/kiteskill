@@ -2,6 +2,6 @@
 {
     public struct MainPrediction
     {
-        public decimal Temp { get; set; }
+        public double Temp { get; set; }
     }
 }
