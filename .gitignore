@@ -310,3 +310,5 @@ tarballs/
 test-results/
 *.cache
 *.sln.cache
+
+DrachenwetterLambda/Settings.cs
