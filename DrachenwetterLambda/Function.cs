@@ -19,7 +19,7 @@ namespace KiteWeather
                 var outputString = string.Empty;
 
                 if (input.GetRequestType() == typeof(LaunchRequest))
-                    outputString = GetTodaysKiteConditions();
+                    outputString = GetCurrentKiteConditions();
                 else if (input.GetRequestType() == typeof(IntentRequest))
                     switch (((IntentRequest)input.Request).Intent.Name)
                     {

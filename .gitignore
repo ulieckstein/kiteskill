@@ -312,3 +312,4 @@ test-results/
 *.sln.cache
 
 DrachenwetterLambda/Settings.cs
+DrachenwetterLambda/aws-lambda-tools-defaults\.json
