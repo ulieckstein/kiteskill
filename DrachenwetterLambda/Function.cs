@@ -14,7 +14,7 @@ namespace KiteWeather
         public SkillResponse FunctionHandler(SkillRequest input)
         {
             
-                var outputString = "hallo, wie kann ich dir helfen?";
+                var outputString = string.Empty;
 
                 if (input.GetRequestType() == typeof(LaunchRequest))
                     outputString = GetTodaysKiteConditions();
