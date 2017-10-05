@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Net.Http;
+using System.Threading.Tasks;
 using KiteWeather.Models;
 using Newtonsoft.Json;
 
@@ -7,15 +9,9 @@ namespace KiteWeather
 
     public class WeatherConditionService
     {
-        public WeatherConditionService()
+        public string GetCurrentKiteWeather()
         {
-            
-        }
-
-        public async Task<string> GetCurrentKiteWeather()
-        {
-            var current = await GetCurrent();
-            var windActivity = string.Empty;
+            var current = GetCurrent().Result;
             if (current.Wind.SpeedKmH < 15.0)
             {
                 return $"Der Wind ist mit {current.Wind.SpeedKmH} Stundenkilometern heute leider zu schwach um einen Drachen steigen zu lassen.";
@@ -31,7 +27,7 @@ namespace KiteWeather
 
         private async Task<Forecast> GetForecast()
         {
-            using (var wc = new System.Net.Http.HttpClient())
+            using (var wc = new HttpClient())
             {
                 var json = await wc.GetStringAsync($"{Settings.BaseUrl}forecast?q={Settings.City}&units={Settings.Units}&appid={Settings.AppId}");
                 return JsonConvert.DeserializeObject<Forecast>(json);
@@ -40,9 +36,9 @@ namespace KiteWeather
 
         private async Task<Current> GetCurrent()
         {
-            using (var wc = new System.Net.Http.HttpClient())
+            using (var wc = new HttpClient())
             {
-                var json = await wc.GetStringAsync($"{Settings.BaseUrl}current?q={Settings.City}&units={Settings.Units}&appid={Settings.AppId}");
+                var json = await wc.GetStringAsync($"{Settings.BaseUrl}weather?q={Settings.City}&units={Settings.Units}&appid={Settings.AppId}");
                 return JsonConvert.DeserializeObject<Current>(json);
             }
         }

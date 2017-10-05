@@ -62,17 +62,17 @@ namespace KiteWeather
 
         private string GetCurrentKiteConditions()
         {
-            return _weatherService.GetCurrentKiteWeather().Result;
+            return _weatherService.GetCurrentKiteWeather();
         }
 
         private string GetTodaysKiteConditions()
         {
-            return "du möchtest wissen, ob du heute einen drachen steigen lassen kannst";
+            return "du mï¿½chtest wissen, ob du heute einen drachen steigen lassen kannst";
         }
 
         private string GetTomorrowsKiteConditions()
         {
-            return "du möchtest wissen, ob du morgen einen drachen steigen lassen kannst";
+            return "du mï¿½chtest wissen, ob du morgen einen drachen steigen lassen kannst";
         }
 
     }
