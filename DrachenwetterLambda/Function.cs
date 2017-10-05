@@ -18,7 +18,7 @@ namespace KiteWeather
                 var outputString = string.Empty;
 
                 if (input.GetRequestType() == typeof(LaunchRequest))
-                    outputString = GetCurrentKiteConditions();
+                    outputString = GetTodaysKiteConditions();
                 else if (input.GetRequestType() == typeof(IntentRequest))
                     switch (((IntentRequest)input.Request).Intent.Name)
                     {
@@ -66,7 +66,7 @@ namespace KiteWeather
 
         private string GetTodaysKiteConditions()
         {
-            return "du möchtest wissen, ob du heute einen drachen steigen lassen kannst";
+            return _weatherService.GetTodayKiteWeather();
         }
 
         private string GetTomorrowsKiteConditions()
