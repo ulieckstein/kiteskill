@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace KiteWeather.Models
 {
@@ -6,10 +7,11 @@ namespace KiteWeather.Models
     {
         public String Id { get; set; }
         public String Name { get; set; }
-        public DateTime Dt { get; set; }
+        public long Dt { get; set; }
         public MainPrediction Main { get; set; }
         public WindPrediction Wind { get; set; }
         public CloudsPrediction Clouds { get; set; }
-        public WeatherPrediction Weather { get; set; }
+        public IEnumerable<WeatherPrediction> Weather { get; set; }
+        public DateTime Time => new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(Dt);
     }
 }
