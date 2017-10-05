@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Amazon.Lambda.Core;
 using KiteWeather.Models;
@@ -12,17 +13,18 @@ namespace KiteWeather
         public string GetCurrentKiteWeather()
         {
             var current = GetCurrent().Result;
+            var predictionTime = $"Hier das aktuelle Wetter von {current.Time.Hour} Uhr {current.Time.Minute}: ";
             if (current.Wind.SpeedKmH < 15.0)
             {
-                return $"Der Wind ist mit {current.Wind.SpeedKmH} Stundenkilometern heute leider zu schwach um einen Drachen steigen zu lassen.";
+                return $"{predictionTime} Der Wind ist mit {Math.Round(current.Wind.SpeedKmH)} Stundenkilometern heute leider zu schwach um einen Drachen steigen zu lassen.";
             }
             if (current.Wind.SpeedKmH > 40)
             {
                 return
-                    $"Es ist heute sehr stürmisch! Bei {current.Wind.SpeedKmH} Stundenkilometern Wingeschwindigkeit solltest du mit deinem Drachen lieber zuhause bleiben.";
+                    $"{predictionTime} Es ist heute sehr stürmisch! Bei {Math.Round(current.Wind.SpeedKmH)} Stundenkilometern Wingeschwindigkeit solltest du mit deinem Drachen lieber zuhause bleiben.";
             }
             return
-                $"Mit einer Windgeschwindigkeit von {current.Wind.SpeedKmH} Stundenkilometern ist gerade ideales Wetter um einen Drachen steigen zu lassen!";
+                $"{predictionTime} Mit einer Windgeschwindigkeit von {Math.Round(current.Wind.SpeedKmH)} Stundenkilometern ist gerade ideales Wetter um einen Drachen steigen zu lassen!";
         }
 
         private async Task<Forecast> GetForecast()

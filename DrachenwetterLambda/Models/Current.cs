@@ -12,6 +12,6 @@ namespace KiteWeather.Models
         public WindPrediction Wind { get; set; }
         public CloudsPrediction Clouds { get; set; }
         public IEnumerable<WeatherPrediction> Weather { get; set; }
-        public DateTime Time => new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(Dt);
+        public DateTime Time => Dt.ToLocalTime();
     }
 }
