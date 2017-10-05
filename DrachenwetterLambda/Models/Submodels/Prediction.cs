@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace KiteWeather.Models
 {
@@ -10,6 +11,6 @@ namespace KiteWeather.Models
         public MainPrediction Main { get; set; }
         public WindPrediction Wind { get; set; }
         public CloudsPrediction Clouds { get; set; }
-        public WeatherPrediction Weather { get; set; }
+        public IEnumerable<WeatherPrediction> Weather { get; set; }
     }
 }

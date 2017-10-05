@@ -32,13 +32,14 @@ namespace KiteWeather
         {
             var forecast = GetForecast().Result;
 
-            var goodConditions = forecast.List.Where(p => p.Wind.SpeedKmH < 40 && p.Wind.SpeedKmH > 15 && p.Time.Date == DateTime.Now.Date)
-                .OrderBy(p => p.Time).ToList();
+            var goodConditions = forecast.List
+                .Where(p => p.Wind.SpeedKmH < 40 && p.Wind.SpeedKmH > 15 && p.Time.Date == DateTime.Now.Date)
+                .ToList();
 
             if (goodConditions.Any())
             {
                 return
-                    $"Zwischen {goodConditions.First().Time.Hour} und {goodConditions.Last().Time.Hour} Uhr ist bei einer durchschnittlichen Windgeschwindigkeit von {Math.Round(goodConditions.AverageWindKmH())} Stundenkilometern heute ideales Wetter um Drachen steigen zu lassen";
+                    $"Zwischen {goodConditions.Min(p => p.Time).Hour} und {goodConditions.Max(p => p.Time).Hour} Uhr ist bei einer durchschnittlichen Windgeschwindigkeit von {Math.Round(goodConditions.AverageWindKmH())} Stundenkilometern heute ideales Wetter um Drachen steigen zu lassen";
             }
             var average = forecast.List.AverageWindKmH();
             if (average > 40)
@@ -59,15 +60,7 @@ namespace KiteWeather
                 LambdaLogger.Log("GET " + url);
                 var json = await wc.GetStringAsync(url);
                 LambdaLogger.Log("Result: " + json);
-                try
-                {
-                    return JsonConvert.DeserializeObject<Forecast>(json);
-                }
-                catch (Exception e)
-                {
-                    LambdaLogger.Log(e.Message);
-                    throw;
-                }
+                return JsonConvert.DeserializeObject<Forecast>(json);
             }
         }
 
