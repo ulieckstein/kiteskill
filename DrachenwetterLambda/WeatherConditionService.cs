@@ -1,6 +1,6 @@
-﻿using System;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
+using Amazon.Lambda.Core;
 using KiteWeather.Models;
 using Newtonsoft.Json;
 
@@ -38,7 +38,10 @@ namespace KiteWeather
         {
             using (var wc = new HttpClient())
             {
-                var json = await wc.GetStringAsync($"{Settings.BaseUrl}weather?q={Settings.City}&units={Settings.Units}&appid={Settings.AppId}");
+                var url = $"{Settings.BaseUrl}weather?q={Settings.City}&units={Settings.Units}&appid={Settings.AppId}";
+                LambdaLogger.Log("GET " + url);
+                var json = await wc.GetStringAsync(url);
+                LambdaLogger.Log("Result: " + json);
                 return JsonConvert.DeserializeObject<Current>(json);
             }
         }

@@ -1,3 +1,4 @@
+using System;
 using Alexa.NET.Request;
 using Alexa.NET.Request.Type;
 using Alexa.NET.Response;
@@ -15,7 +16,6 @@ namespace KiteWeather
         public SkillResponse FunctionHandler(SkillRequest input)
         {
                 _weatherService = new WeatherConditionService();
-
                 var outputString = string.Empty;
 
                 if (input.GetRequestType() == typeof(LaunchRequest))
@@ -67,12 +67,12 @@ namespace KiteWeather
 
         private string GetTodaysKiteConditions()
         {
-            return "du m�chtest wissen, ob du heute einen drachen steigen lassen kannst";
+            return "du möchtest wissen, ob du heute einen drachen steigen lassen kannst";
         }
 
         private string GetTomorrowsKiteConditions()
         {
-            return "du m�chtest wissen, ob du morgen einen drachen steigen lassen kannst";
+            return "du möchtest wissen, ob du morgen einen drachen steigen lassen kannst";
         }
 
     }
