@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace KiteWeather.Models
 {
-    public struct Prediction
+    public class Prediction
     {
         public long Dt { get; set; }
 

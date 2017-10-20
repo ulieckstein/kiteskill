@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -30,9 +31,10 @@ namespace KiteWeather
 
         public string GetTodayKiteWeather()
         {
-            var forecast = GetForecast().Result;
+            var predictions = new List<Prediction> {GetCurrent().Result};
+            predictions.AddRange(GetForecast().Result.List);
 
-            var goodConditions = forecast.List
+            var goodConditions = predictions
                 .Where(p => p.Wind.SpeedKmH < 40 && p.Wind.SpeedKmH > 15 && p.Time.Date == DateTime.Now.Date)
                 .ToList();
 
@@ -41,7 +43,7 @@ namespace KiteWeather
                 return
                     $"Zwischen {goodConditions.Min(p => p.Time).Hour} und {goodConditions.Max(p => p.Time).Hour} Uhr ist bei einer durchschnittlichen Windgeschwindigkeit von {Math.Round(goodConditions.AverageWindKmH())} Stundenkilometern heute ideales Wetter um Drachen steigen zu lassen";
             }
-            var average = forecast.List.AverageWindKmH();
+            var average = predictions.AverageWindKmH();
             if (average > 40)
             {
                 return
