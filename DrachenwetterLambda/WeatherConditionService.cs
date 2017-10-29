@@ -31,7 +31,9 @@ namespace KiteWeather
 
         public string GetTodayKiteWeather()
         {
+            LambdaLogger.Log("GetTodayKiteWeather started");
             var predictions = new List<Prediction> {GetCurrent().Result};
+            LambdaLogger.Log("Received conditions");
             predictions.AddRange(GetForecast().Result.List);
 
             return CreateWindSpeedResult(predictions);
@@ -39,6 +41,7 @@ namespace KiteWeather
 
         private string CreateWindSpeedResult(List<Prediction> predictions)
         {
+            LambdaLogger.Log("Parsing Wind Conditions");
             var goodConditions = predictions
                 .Where(p => p.Wind.SpeedKmH < 40 && p.Wind.SpeedKmH > 15 && p.Time.Date == DateTime.Now.Date)
                 .ToList();
