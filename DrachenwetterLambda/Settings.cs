@@ -8,5 +8,6 @@ namespace KiteWeather
         public const string Units = "metric";
         public const string BaseUrl = "http://api.openweathermap.org/data/2.5/";
         public const string AppId = "#insert app id here#";
+        public const int PredictionFrequencyHours = 3;
     }
 }

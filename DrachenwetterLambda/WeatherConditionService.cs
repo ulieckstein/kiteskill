@@ -70,7 +70,7 @@ namespace KiteWeather
             if (goodWeatherConditions.Any())
             {
                 return
-                    $"Zwischen {goodWindPredictions.Min(p => p.Time).Hour} und {goodWindPredictions.Max(p => p.Time).Hour} Uhr "+
+                    $"Zwischen {goodWindPredictions.Min(p => p.Time).Hour} und {goodWindPredictions.Max(p => p.Time.AddHours(Settings.PredictionFrequencyHours)).Hour} Uhr "+
                     $"ist bei einer durchschnittlichen Windgeschwindigkeit von {Math.Round(goodWindPredictions.AverageWindKmH())} Stundenkilometern " +
                     "heute ideales Wetter um Drachen steigen zu lassen. " +
                     goodWeatherConditions.ToList().GetWorstCondition().OutputText;
