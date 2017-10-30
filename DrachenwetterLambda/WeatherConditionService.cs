@@ -62,19 +62,22 @@ namespace KiteWeather
 
         private string CreateWeatherResult(List<Prediction> goodWindPredictions)
         {
-            var goodWeatherConditions = goodWindPredictions.Where(p => p.Weather.Any(w => w.Mapped.CanFly)).ToList();
+            LambdaLogger.Log("Parsing Weather Conditions");
+            var goodWeatherConditions = goodWindPredictions
+                                        .Where(p => p.Weather.Any(w => w.Mapped.CanFly))
+                                        .ToList();
 
             if (goodWeatherConditions.Any())
             {
                 return
                     $"Zwischen {goodWindPredictions.Min(p => p.Time).Hour} und {goodWindPredictions.Max(p => p.Time).Hour} Uhr "+
                     $"ist bei einer durchschnittlichen Windgeschwindigkeit von {Math.Round(goodWindPredictions.AverageWindKmH())} Stundenkilometern " +
-                    "heute ideales Wetter um Drachen steigen zu lassen" +
-                    goodWeatherConditions.ToList().GetWorstCondition().DescriptionTranslated;
+                    "heute ideales Wetter um Drachen steigen zu lassen. " +
+                    goodWeatherConditions.ToList().GetWorstCondition().OutputText;
             }
 
             return $"Wir haben zwar mit {goodWindPredictions.AverageWindKmH()} Stundenkilometern heute guten Wind, " +
-                goodWindPredictions.GetWorstCondition().DescriptionTranslated;
+                goodWindPredictions.GetWorstCondition().OutputText;
         }
 
         private async Task<Forecast> GetForecast()
@@ -84,7 +87,7 @@ namespace KiteWeather
                 var url = $"{Settings.BaseUrl}forecast?q={Settings.City}&units={Settings.Units}&appid={Settings.AppId}";
                 LambdaLogger.Log("GET " + url);
                 var json = await wc.GetStringAsync(url);
-                LambdaLogger.Log("Result: " + json);
+                //LambdaLogger.Log("Result: " + json);
                 return JsonConvert.DeserializeObject<Forecast>(json);
             }
         }
@@ -96,7 +99,7 @@ namespace KiteWeather
                 var url = $"{Settings.BaseUrl}weather?q={Settings.City}&units={Settings.Units}&appid={Settings.AppId}";
                 LambdaLogger.Log("GET " + url);
                 var json = await wc.GetStringAsync(url);
-                LambdaLogger.Log("Result: " + json);
+                //LambdaLogger.Log("Result: " + json);
                 return JsonConvert.DeserializeObject<Current>(json);
             }
         }
