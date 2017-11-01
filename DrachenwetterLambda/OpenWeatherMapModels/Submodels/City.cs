@@ -1,4 +1,4 @@
-﻿namespace KiteWeather.Models
+﻿namespace KiteWeather.OpenWeatherMapModels
 {
     public struct City
     {

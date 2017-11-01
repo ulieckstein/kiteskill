@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace KiteWeather.Models
+namespace KiteWeather.OpenWeatherMapModels
 {
     public class Prediction
     {

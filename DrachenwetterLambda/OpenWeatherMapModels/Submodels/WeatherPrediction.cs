@@ -1,4 +1,4 @@
-﻿namespace KiteWeather.Models
+﻿namespace KiteWeather.OpenWeatherMapModels
 {
     public struct WeatherPrediction
     {
@@ -7,6 +7,6 @@
         public string Description { get; set; }
         public string Icon { get; set; }
 
-        public ConditionMapper Mapped => ConditionMapper.GetById(Id);
+        public WeatherIdMapper Mapped => WeatherIdMapper.GetById(Id);
     }
 }
