@@ -8,5 +8,18 @@ namespace KiteWeather.Models
     {
         public List<Prediction> GoodWindConditions { get; set; }
         public bool HasGoodWind => GoodWindConditions.Any();
+
+        public WindAndWeatherResultModel ToWindAndWeatherResultModel()
+        {
+            return new WindAndWeatherResultModel
+            {
+                City = City,
+                Day = Day,
+                Predictions = Predictions,
+                Sunset = Sunset,
+                Sunrise = Sunrise,
+                GoodWindConditions = GoodWindConditions
+            };
+        }
     }
 }

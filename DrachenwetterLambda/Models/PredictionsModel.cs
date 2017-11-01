@@ -9,5 +9,17 @@ namespace KiteWeather.Models
         public List<Prediction> Predictions { get; set; }
         public DateTime Sunrise { get; set; }
         public DateTime Sunset { get; set; }
+
+        public WindResultModel ToWindResultModel()
+        {
+            return new WindResultModel
+            {
+                City = City,
+                Day = Day,
+                Predictions = Predictions,
+                Sunset = Sunset,
+                Sunrise = Sunrise
+            };
+        }
     }
 }

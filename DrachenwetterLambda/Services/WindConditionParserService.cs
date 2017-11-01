@@ -12,7 +12,7 @@ namespace KiteWeather.Services
 
         public static WindResultModel ParseWindConditions(this PredictionsModel predictions)
         {
-            var model = predictions as WindResultModel;
+            var model = predictions.ToWindResultModel();
             GetGoodWindPredictions(model);
             return model;
         }

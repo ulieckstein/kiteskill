@@ -8,7 +8,7 @@ namespace KiteWeather.Services
     {
         public static WindAndWeatherResultModel ParseWeatherConditions(this WindResultModel windResults)
         {
-            var model = windResults as WindAndWeatherResultModel;
+            var model = windResults.ToWindAndWeatherResultModel();
             if (!windResults.HasGoodWind) return model;
             GetGoodWeatherPredictions(model);
             return model;

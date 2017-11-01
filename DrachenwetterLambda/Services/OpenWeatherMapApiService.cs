@@ -15,7 +15,7 @@ namespace KiteWeather.Services
     {
         public static PredictionsModel GetPredictions(this RequestModel request)
         {
-            var model = request as PredictionsModel;
+            var model = request.ToPredictionsModel();
             model.Predictions = new List<Prediction>();
             AddCurrent(model);
             AddForecast(model);
