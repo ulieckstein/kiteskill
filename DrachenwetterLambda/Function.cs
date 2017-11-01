@@ -13,11 +13,8 @@ namespace KiteWeather
 {
     public class Function
     {
-        private WeatherConditionService _weatherService;
-
         public SkillResponse FunctionHandler(SkillRequest input)
         {
-                _weatherService = new WeatherConditionService();
                 var outputString = string.Empty;
 
                 if (input.GetRequestType() == typeof(LaunchRequest))
@@ -34,7 +31,7 @@ namespace KiteWeather
                                 "Ich kann dir helfen herauszufinden ob sich das Wetter in Koblenz heute oder morgen zum Drachen steigen lassen eignet";
                             break;
                         case "GetCurrentKiteWeatherIntent":
-                            outputString = GetCurrentKiteConditions();
+                            outputString = GetTodaysKiteConditions();
                             break;
                         case "GetTodaysKiteWeatherIntent":
                             outputString = GetTodaysKiteConditions();
@@ -43,7 +40,7 @@ namespace KiteWeather
                             outputString = GetTomorrowsKiteConditions();
                         break;
                         default:
-                            outputString = GetCurrentKiteConditions();
+                            outputString = GetTodaysKiteConditions();
                             break;
                     }
 
@@ -60,11 +57,6 @@ namespace KiteWeather
                 Version = "1.0"
             };
             return response;
-        }
-
-        private string GetCurrentKiteConditions()
-        {
-            return _weatherService.GetCurrentKiteWeather();
         }
 
         private string GetTodaysKiteConditions()
