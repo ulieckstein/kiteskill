@@ -2,6 +2,9 @@ using Alexa.NET.Request;
 using Alexa.NET.Request.Type;
 using Alexa.NET.Response;
 using Amazon.Lambda.Core;
+using KiteWeather.Enums;
+using KiteWeather.Models;
+using KiteWeather.Services;
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.Json.JsonSerializer))]
@@ -66,12 +69,22 @@ namespace KiteWeather
 
         private string GetTodaysKiteConditions()
         {
-            return _weatherService.GetTodayKiteWeather();
+            var request = new RequestModel {City = Settings.City, Day = Day.Today};
+            return request
+                .GetPredictions()
+                .ParseWindConditions()
+                .ParseWeatherConditions()
+                .ToString();
         }
 
         private string GetTomorrowsKiteConditions()
         {
-            return "du möchtest wissen, ob du morgen einen drachen steigen lassen kannst";
+            var request = new RequestModel { City = Settings.City, Day = Day.Tomorrow };
+            return request
+                .GetPredictions()
+                .ParseWindConditions()
+                .ParseWeatherConditions()
+                .ToString();
         }
 
     }
